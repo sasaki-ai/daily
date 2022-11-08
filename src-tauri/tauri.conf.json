@@ -1,0 +1,79 @@
+{
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "daily-vue",
+    "version": "0.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": true,
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$RESOURCE/img/*"]
+      }
+    },
+    "bundle": {
+      "active": true,
+      "category": "DeveloperTool",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.tauri.sasaki",
+      "longDescription": "",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": ["./img"],
+      "shortDescription": "",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+    },
+    "updater": {
+      "active": false,
+      "dialog": true,
+      "endpoints": ["https://lencx.github.io/OhMyBox/install.json"],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYyM0ExNTdGOTNFQzcyM0QKUldROWN1eVRmeFU2OHV3RVJDYnJ4azUyTCtISmNwT2l2NExxczVaYnVoNHI3cmVRVEpyTWcwbFgK"
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 400,
+        "maxHeight": 400,
+        "minHeight": 400,
+        "resizable": true,
+        "title": "daily-vue",
+        "width": 400,
+        "maxWidth": 400,
+        "minWidth": 400,
+        "center": true,
+        "label": "login"
+      }
+    ]
+  }
+}

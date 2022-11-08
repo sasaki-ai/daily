@@ -1,0 +1,25 @@
+{
+  "name": "daily-vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.1.0",
+    "axios": "^1.1.3",
+    "naive-ui": "^2.33.5",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.6",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.1.0",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "vite": "^3.0.2"
+  }
+}
