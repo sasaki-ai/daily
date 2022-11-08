@@ -57,7 +57,7 @@
     "updater": {
       "active": false,
       "dialog": true,
-      "endpoints": ["https://lencx.github.io/OhMyBox/install.json"],
+      "endpoints": ["https://lencx.github.io/daily/install.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYyM0ExNTdGOTNFQzcyM0QKUldROWN1eVRmeFU2OHV3RVJDYnJ4azUyTCtISmNwT2l2NExxczVaYnVoNHI3cmVRVEpyTWcwbFgK"
     },
     "windows": [
