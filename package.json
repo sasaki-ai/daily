@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "rsw": "rsw",
-    "updater": "node scripts/updater.mjs", 
-    "release": "node scripts/release.mjs" 
+    "updater": "node scripts/updater.mjs",
+    "release": "node scripts/release.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.1.0",
@@ -21,8 +21,10 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@actions/github": "^5.1.1",
     "@tauri-apps/cli": "^1.1.0",
     "@vitejs/plugin-vue": "^3.0.1",
+    "node-fetch": "^3.2.10",
     "vite": "^3.0.2"
   }
 }
