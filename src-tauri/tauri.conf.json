@@ -7,8 +7,8 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "daily-vue",
-    "version": "0.0.0"
+    "productName": "daily",
+    "version": "../package.json"
   },
   "tauri": {
     "allowlist": {
@@ -55,7 +55,7 @@
       "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
-      "active": false,
+      "active": true,
       "dialog": true,
       "endpoints": ["https://lencx.github.io/OhMyBox/install.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYyM0ExNTdGOTNFQzcyM0QKUldROWN1eVRmeFU2OHV3RVJDYnJ4azUyTCtISmNwT2l2NExxczVaYnVoNHI3cmVRVEpyTWcwbFgK"
