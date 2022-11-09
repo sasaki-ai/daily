@@ -8,7 +8,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "rsw": "rsw",
     "updater": "node scripts/updater.mjs",
     "release": "node scripts/release.mjs"
   },
