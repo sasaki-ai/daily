@@ -30,6 +30,7 @@ jobs:
             release_name: 'daily ${{ steps.get_version.outputs.VERSION }}'
             body: 'See the assets to download this version and install.'
   release:
+    needs: create-release
     strategy:
       fail-fast: false
       matrix:
