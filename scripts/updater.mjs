@@ -9,7 +9,7 @@ const token = process.env.GITHUB_TOKEN;
 async function updater() {
   if (!token) {
     console.log('GITHUB_TOKEN is required');
-    process.exit(1);
+    process.exit(2);
   }
 
   // 用户名，仓库名
