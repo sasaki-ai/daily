@@ -1,15 +1,14 @@
 {
   "name": "daily",
   "private": true,
-  "version": "1.3.0",
+  "version": "1.3.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "updater": "node scripts/updater.mjs",
-    "release": "node scripts/release.mjs"
+    "update": "node scripts/update.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.1.0",
