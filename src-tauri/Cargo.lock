@@ -438,7 +438,7 @@ checksum = "b365fabc795046672053e29c954733ec3b05e4be654ab130fe8f1f94d7051f35"
 
 [[package]]
 name = "daily"
-version = "1.4.0"
+version = "1.4.1"
 dependencies = [
  "serde",
  "serde_json",
