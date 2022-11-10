@@ -17,6 +17,9 @@
       "active": true,
       "category": "DeveloperTool",
       "copyright": "",
+      "deb": {
+        "depends": []
+      },
       "externalBin": [],
       "icon": [
         "icons/32x32.png",
@@ -27,8 +30,20 @@
       ],
       "identifier": "com.tauri.sasaki",
       "longDescription": "",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
       "shortDescription": "",
-      "targets": "all"
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
     },
     "security": {
       "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
