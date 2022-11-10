@@ -13,8 +13,7 @@
     "allowlist": {
       "all": true,
       "protocol": {
-        "asset": true,
-        "assetScope": ["$RESOURCE/img/*"]
+        "asset": true
       }
     },
     "bundle": {
@@ -41,7 +40,6 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": ["./img"],
       "shortDescription": "",
       "targets": "all",
       "windows": {
