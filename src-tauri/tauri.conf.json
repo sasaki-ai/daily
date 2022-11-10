@@ -11,11 +11,7 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true,
-      "protocol": {
-        "asset": true,
-        "assetScope": ["$RESOURCE/img/*"]
-      }
+      "all": true
     },
     "bundle": {
       "active": true,
@@ -24,7 +20,6 @@
       "deb": {
         "depends": []
       },
-      "externalBin": [],
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -41,7 +36,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": ["./img"],
+      "resources": [""],
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -51,12 +46,14 @@
       }
     },
     "security": {
-      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+      "csp": ""
     },
     "updater": {
-      "active": false,
+      "active": true,
       "dialog": true,
-      "endpoints": ["https://github.com/1326668766/daily/releases/download/updater/update.json"],
+      "endpoints": [
+        "https://github.com/1326668766/daily/releases/download/updater/update.json"
+      ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYyM0ExNTdGOTNFQzcyM0QKUldROWN1eVRmeFU2OHV3RVJDYnJ4azUyTCtISmNwT2l2NExxczVaYnVoNHI3cmVRVEpyTWcwbFgK"
     },
     "windows": [

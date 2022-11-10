@@ -1,10 +1,10 @@
-// @ts-nocheck
 import fetch from 'node-fetch';
 import { getOctokit, context } from '@actions/github';
  
 const UPDATE_TAG_NAME = 'updater';
 const UPDATE_FILE_NAME = 'update.json';
  
+// 获取签名内容
 const getSignature = async (url) => {
   const response = await fetch(url, {
     method: 'GET',
@@ -13,8 +13,9 @@ const getSignature = async (url) => {
   return response.text();
 };
  
+// 需要生成的静态 json 文件数据，根据自己的需要进行调整
 const updateData = {
-  name: '',
+  version: '',
   pub_date: new Date().toISOString(),
   platforms: {
     win64: { signature: '', url: '' },
@@ -25,43 +26,43 @@ const updateData = {
   }
 };
  
-const octokit = getOctokit(process.env.GITHUB_TOKEN);
+// 用户名，仓库名 
 const options = { owner: context.repo.owner, repo: context.repo.repo };
- 
+const octokit = getOctokit(process.env.GITHUB_TOKEN);
+
+// 获取此 tag 的详细信息
 const { data: release } = await octokit.rest.repos.getLatestRelease(options);
-updateData.name = release.tag_name;
+updateData.version = release.tag_name;
 // eslint-disable-next-line camelcase
 for (const { name, browser_download_url } of release.assets) {
   if (name.endsWith('.msi.zip')) {
-    // eslint-disable-next-line camelcase
+    // 设置下载链接
     updateData.platforms.win64.url = browser_download_url;
-    // eslint-disable-next-line camelcase
+    // 设置下载链接
     updateData.platforms['windows-x86_64'].url = browser_download_url;
   } else if (name.endsWith('.msi.zip.sig')) {
-    // eslint-disable-next-line no-await-in-loop
+    // 获取平台签名
     const signature = await getSignature(browser_download_url);
+    // 设置平台签名，检测应用更新需要验证签名
     updateData.platforms.win64.signature = signature;
+    // 设置平台签名，检测应用更新需要验证签名
     updateData.platforms['windows-x86_64'].signature = signature;
   } else if (name.endsWith('.app.tar.gz')) {
-    // eslint-disable-next-line camelcase
     updateData.platforms.darwin.url = browser_download_url;
   } else if (name.endsWith('.app.tar.gz.sig')) {
-    // eslint-disable-next-line no-await-in-loop
     const signature = await getSignature(browser_download_url);
     updateData.platforms.darwin.signature = signature;
   } else if (name.endsWith('.AppImage.tar.gz')) {
-    // eslint-disable-next-line camelcase
     updateData.platforms.linux.url = browser_download_url;
-    // eslint-disable-next-line camelcase
     updateData.platforms['linux-x86_64'].url = browser_download_url;
   } else if (name.endsWith('.AppImage.tar.gz.sig')) {
-    // eslint-disable-next-line no-await-in-loop
     const signature = await getSignature(browser_download_url);
     updateData.platforms.linux.signature = signature;
     updateData.platforms['linux-x86_64'].signature = signature;
   }
 }
  
+// 获取此 tag 的详细信息
 const { data: updater } = await octokit.rest.repos.getReleaseByTag({
   ...options,
   tag: UPDATE_TAG_NAME
