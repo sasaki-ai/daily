@@ -18,7 +18,7 @@ jobs:
           shell: bash
           run: |
             echo "using version tag ${GITHUB_REF:10}"
-            echo version="${GITHUB_REF:10}"
+            echo "version="${GITHUB_REF:10}"
 
         - name: Create Release
           id: create_release
