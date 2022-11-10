@@ -54,7 +54,7 @@
       "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
-      "active": false,
+      "active": true,
       "dialog": true,
       "endpoints": ["https://github.com/1326668766/daily/releases/download/updater/update.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYyM0ExNTdGOTNFQzcyM0QKUldROWN1eVRmeFU2OHV3RVJDYnJ4azUyTCtISmNwT2l2NExxczVaYnVoNHI3cmVRVEpyTWcwbFgK"
