@@ -46,10 +46,10 @@
       }
     },
     "security": {
-      "csp": "null"
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
-      "active": true,
+      "active": false,
       "dialog": true,
       "endpoints": [
         "https://github.com/1326668766/daily/releases/download/updater/update.json"
