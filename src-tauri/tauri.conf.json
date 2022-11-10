@@ -13,7 +13,8 @@
     "allowlist": {
       "all": true,
       "protocol": {
-        "asset": true
+        "asset": true,
+        "assetScope": ["$RESOURCE/img/*"]
       }
     },
     "bundle": {
@@ -40,7 +41,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [""],
+      "resources": ["./img"],
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -50,7 +51,7 @@
       }
     },
     "security": {
-      "csp": ""
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
       "active": false,
