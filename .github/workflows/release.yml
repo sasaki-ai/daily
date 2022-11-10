@@ -18,7 +18,7 @@ jobs:
           shell: bash
           run: |
             echo "using version tag ${GITHUB_REF:10}"
-            echo ::set-output name=version::"${GITHUB_REF:10}"
+            echo version="${GITHUB_REF:10}"
 
         - name: Create Release
           id: create_release
@@ -28,7 +28,7 @@ jobs:
           with:
             tag_name: '${{ steps.get_version.outputs.VERSION }}'
             release_name: 'daily ${{ steps.get_version.outputs.VERSION }}'
-            body: 'See the assets to download this version and install.'
+            body: '${{ secrets.GITHUB_TOKEN }}'
   release:
     needs: create-release
     strategy:
