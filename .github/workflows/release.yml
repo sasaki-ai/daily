@@ -28,7 +28,7 @@ jobs:
           with:
             tag_name: '${{ steps.get_version.outputs.VERSION }}'
             release_name: 'daily ${{ steps.get_version.outputs.VERSION }}'
-            body: '${{ secrets.GITHUB_TOKEN }}'
+            body: '测试跟新'
   release:
     needs: create-release
     strategy:
