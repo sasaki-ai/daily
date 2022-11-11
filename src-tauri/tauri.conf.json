@@ -29,7 +29,7 @@
       "csp": "null"
     },
     "updater": {
-      "active": false,
+      "active": true,
       "dialog": true,
       "endpoints": [
         "https://github.com/1326668766/daily/releases/download/updater/update.json"
