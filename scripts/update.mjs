@@ -35,12 +35,12 @@ const { data: release } = await octokit.rest.repos.getLatestRelease(options);
 updateData.version = release.tag_name;
 // eslint-disable-next-line camelcase
 for (const { name, browser_download_url } of release.assets) {
-  if (name.endsWith('.msi')) {
+  if (name.endsWith('.msi.zip')) {
     // 设置下载链接
     updateData.platforms.win64.url = browser_download_url;
     // 设置下载链接
     updateData.platforms['windows-x86_64'].url = browser_download_url;
-  } else if (name.endsWith('.msi.sig')) {
+  } else if (name.endsWith('.msi.zip.sig')) {
     // 获取平台签名
     const signature = await getSignature(browser_download_url);
     // 设置平台签名，检测应用更新需要验证签名
@@ -52,10 +52,10 @@ for (const { name, browser_download_url } of release.assets) {
   } else if (name.endsWith('.app.tar.gz.sig')) {
     const signature = await getSignature(browser_download_url);
     updateData.platforms.darwin.signature = signature;
-  } else if (name.endsWith('.AppImage')) {
+  } else if (name.endsWith('.AppImage.tar.gz')) {
     updateData.platforms.linux.url = browser_download_url;
     updateData.platforms['linux-x86_64'].url = browser_download_url;
-  } else if (name.endsWith('.AppImage.sig')) {
+  } else if (name.endsWith('.AppImage.tae.gz.sig')) {
     const signature = await getSignature(browser_download_url);
     updateData.platforms.linux.signature = signature;
     updateData.platforms['linux-x86_64'].signature = signature;
