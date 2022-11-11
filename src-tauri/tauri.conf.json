@@ -3,7 +3,8 @@
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
     "devPath": "../dist",
-    "distDir": "../dist"
+    "distDir": "../dist",
+    "withGlobalTauri": false
   },
   "package": {
     "productName": "daily",
@@ -15,6 +16,12 @@
     },
     "bundle": {
       "active": true,
+      "category": "DeveloperTool",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -23,10 +30,25 @@
         "icons/icon.ico"
       ],
       "identifier": "com.tauri.sasaki",
-      "targets": "all"
+      "longDescription": "",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [],
+      "shortDescription": "",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
     },
     "security": {
-      "csp": "null"
+      "csp": null
     },
     "updater": {
       "active": true,
@@ -34,7 +56,7 @@
       "endpoints": [
         "https://github.com/1326668766/daily/releases/download/updater/update.json"
       ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIxNUIwRkYzQjhFM0Q3RjgKUldUNDErTzQ4dzliSVYwSFhmQlQrdHNwd295dGF1WmZjczlsRk9WQytWTnorQzNZUGoweWdYdHQK"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEMjE1OUI2RUVDRDcwOEIKUldTTGNNM3V0bGtoWGRBL1d2WUZSdWErWkwzRG5KQ3M0U2N4VllXQkErWXpXUFlBQ3ZmMno3Z1AK"
     },
     "windows": [
       {
