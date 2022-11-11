@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn build",
     "devPath": "../dist",
     "distDir": "../dist"
   },
@@ -26,15 +26,13 @@
         "icons/icon.ico"
       ],
       "identifier": "com.tauri.sasaki",
-      "longDescription": "",
-      "shortDescription": "",
       "targets": "all"
     },
     "security": {
       "csp": "null"
     },
     "updater": {
-      "active": true,
+      "active": false,
       "dialog": true,
       "endpoints": [
         "https://github.com/1326668766/daily/releases/download/updater/update.json"
