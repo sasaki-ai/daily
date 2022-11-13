@@ -28,6 +28,8 @@
             <n-button type="primary" block secondary strong @click="loginAdmin">
               登录
             </n-button>
+            <n-button type="primary" block secondary strong @click="updatemsg">跟新信息</n-button>
+            <n-button type="primary" block secondary strong @click="updateins">安装和下载</n-button>
           </n-tab-pane>
         </n-tabs>
       </n-card>
@@ -36,16 +38,72 @@
 </template>
 
 <script setup>
-import { resourceDir, join } from '@tauri-apps/api/path';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { WebviewWindow } from '@tauri-apps/api/window';
 import { onMounted, ref } from "@vue/runtime-core";
 import { invoke } from "@tauri-apps/api/tauri";
 import { adminLogin, userLogin } from '../hooks/login';
 import { useMessage } from 'naive-ui';
+//
+import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
+import { relaunch } from '@tauri-apps/api/process'
+import { emit } from '@tauri-apps/api/event'
+import { listen } from '@tauri-apps/api/event'
+
+onMounted(async () => {
+  try {
+    const { shouldUpdate, manifest } = await checkUpdate()
+    console.log("hhhh")
+    if (shouldUpdate) {
+      // display dialog
+      await installUpdate()
+      // install complete, restart app
+      await relaunch()
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
+// try {
+//   const { shouldUpdate, manifest } = await checkUpdate()
+//   console.log("hhhh")
+//   if (shouldUpdate) {
+//     // display dialog
+//     await installUpdate()
+//     // install complete, restart app
+//     await relaunch()
+//   }
+// } catch (error) {
+//   console.log(error)
+// }
+
+
+const updatemsg = () => {
+  console.log("xxxx")
+  emit('tauri://update')
+  listen('tauri://update-available', function (res) {
+    console.log('New version available: ', res)
+    alert(res);
+  })
+}
+
+const updateins = () => {
+  console.log("yyy")
+  emit('tauri://update-install')
+  listen('tauri://update-status', function (res) {
+    console.log('New status: ', res)
+    alert(res);
+    if (res == "ERROR") {
+      alert("error")
+    } else if (res == "PENDING") {
+      alert("下载开始")
+    } else if (res == "DONE") {
+      alert("下载完成")
+    }
+  })
+}
+//
 
 const message = useMessage()
-const imgSrc = ref();
 let user = ref({
   uname: "",
   upwd: ""
@@ -79,18 +137,6 @@ let rules = ref({
   }
 })
 
-
-// onMounted(() => {
-//   invoke('open_main');
-// })
-
-onMounted(async () => {
-  const resourceDirPath = await resourceDir();
-  const filePath = await join(resourceDirPath, 'img\\1.jpg');
-  const assetUrl = convertFileSrc(filePath);
-  imgSrc.value = assetUrl;
-})
-
 const loginUser = async () => {
   let logindata = await userLogin(user.value);
   if (logindata.data.status == 200) {
@@ -117,13 +163,6 @@ const loginAdmin = async () => {
     message.error("账号密码错误");
   }
 }
-
-// const urlImg = async () => {
-//   const resourceDirPath = await resourceDir();
-//   const filePath = await join(resourceDirPath, 'img\\1.jpg');
-//   const assetUrl = convertFileSrc(filePath);
-//   imgSrc.value = assetUrl;
-// };
 
 </script>
 
