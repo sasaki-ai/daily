@@ -28,7 +28,6 @@
             <n-button type="primary" block secondary strong @click="loginAdmin">
               登录
             </n-button>
-            <h1>跟新内容</h1>
             <n-button type="primary" block secondary strong @click="updatemsg">跟新信息</n-button>
             <n-button type="primary" block secondary strong @click="updateins">安装和下载</n-button>
           </n-tab-pane>
@@ -49,20 +48,9 @@ import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
 import { relaunch } from '@tauri-apps/api/process'
 import { emit } from '@tauri-apps/api/event'
 import { listen } from '@tauri-apps/api/event'
-
+let testupdate = ref()
 onMounted(async () => {
-  try {
-    const { shouldUpdate, manifest } = await checkUpdate()
-    console.log("hhhh")
-    if (shouldUpdate) {
-      // display dialog
-      await installUpdate()
-      // install complete, restart app
-      await relaunch()
-    }
-  } catch (error) {
-    console.log(error)
-  }
+ 
 })
 // try {
 //   const { shouldUpdate, manifest } = await checkUpdate()
@@ -78,12 +66,24 @@ onMounted(async () => {
 // }
 
 
-const updatemsg = () => {
+const updatemsg = async () => {
+  try {
+    const { shouldUpdate, manifest } = await checkUpdate()
+    console.log("hhhh")
+    if (shouldUpdate) {
+      // display dialog
+      await installUpdate()
+      // install complete, restart app
+      await relaunch()
+    }
+  } catch (error) {
+    console.log(error)
+  }
   console.log("xxxx")
   emit('tauri://update')
   listen('tauri://update-available', function (res) {
     console.log('New version available: ', res)
-    alert(res);
+    alert(res.payload.value);
   })
 }
 
@@ -93,7 +93,7 @@ const updateins = () => {
   listen('tauri://update-status', function (res) {
     console.log('New status: ', res)
     alert(res);
-    if (res == "ERROR") {
+    if (res.payload.status == "ERROR") {
       alert("error")
     } else if (res == "PENDING") {
       alert("下载开始")
