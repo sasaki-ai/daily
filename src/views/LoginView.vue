@@ -28,6 +28,7 @@
             <n-button type="primary" block secondary strong @click="loginAdmin">
               登录
             </n-button>
+            <h1>跟新内容</h1>
             <n-button type="primary" block secondary strong @click="updateapp">跟新</n-button>
             <n-button type="primary" block secondary strong @click="updatemsg">跟新信息</n-button>
             <n-button type="primary" block secondary strong @click="updateins">安装和下载</n-button>
