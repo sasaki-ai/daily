@@ -4,7 +4,7 @@
     "beforeBuildCommand": "yarn build",
     "devPath": "../dist",
     "distDir": "../dist",
-    "withGlobalTauri": false
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "daily",

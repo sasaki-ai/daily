@@ -28,10 +28,8 @@
             <n-button type="primary" block secondary strong @click="loginAdmin">
               登录
             </n-button>
-            <h1>跟新内容</h1>
+            <!-- <h1>跟新内容</h1> -->
             <n-button type="primary" block secondary strong @click="updateapp">跟新</n-button>
-            <n-button type="primary" block secondary strong @click="updatemsg">跟新信息</n-button>
-            <n-button type="primary" block secondary strong @click="updateins">安装和下载</n-button>
           </n-tab-pane>
         </n-tabs>
       </n-card>
@@ -48,59 +46,34 @@ import { useMessage } from 'naive-ui';
 //
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
 import { relaunch } from '@tauri-apps/api/process'
-import { emit } from '@tauri-apps/api/event'
-import { listen } from '@tauri-apps/api/event'
-
-// try {
-//   const { shouldUpdate, manifest } = await checkUpdate()
-//   console.log("hhhh")
-//   if (shouldUpdate) {
-//     // display dialog
-//     await installUpdate()
-//     // install complete, restart app
-//     await relaunch()
-//   }
-// } catch (error) {
-//   console.log(error)
-// }
+import { onUpdaterEvent } from "@tauri-apps/api/updater";
 
 const updateapp = async () => {
   try {
+    //检查是否有可用的更新 返回UpdateResult
     const { shouldUpdate, manifest } = await checkUpdate()
+    console.log(shouldUpdate);
+    alert(shouldUpdate)
+    console.log(manifest);
     if (shouldUpdate) {
-      alert("开始跟新");
-      // display dialog
+      console.log(`Installing update ${manifest.version}, ${manifest.date}, ${manifest.body}`);
+      alert(manifest.version)
+      // 如果有可用的更新，请安装更新
       await installUpdate()
+      alert("等待更新")
+      const unlisten = await onUpdaterEvent(({ error, status }) => {
+        console.log('Updater event', error, status);
+        alert(error)
+        alert(status)
+      });
       // install complete, restart app
       await relaunch()
+      unlisten()
     }
   } catch (error) {
     console.log(error)
   }
 }
-const updatemsg = async () => {
-  console.log("xxxx")
-  emit('tauri://update')
-  listen('tauri://update-available', function (res) {
-    alert("New version available: "+res.payload.value);
-  })
-}
-
-const updateins = () => {
-  console.log("yyy")
-  emit('tauri://update-install')
-  listen('tauri://update-status', function (res) {
-    alert("New status:"+res.payload.status);
-    if (res.payload.status == "ERROR") {
-      alert("error")
-    } else if (res == "PENDING") {
-      alert("下载开始")
-    } else if (res == "DONE") {
-      alert("下载完成")
-    }
-  })
-}
-//
 
 const message = useMessage()
 let user = ref({
