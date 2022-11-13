@@ -4,6 +4,7 @@
       <router-view />
     </n-message-provider>
   </n-dialog-provider>
+  <h1>跟新完毕</h1>
   <button @click="updatemsg">跟新信息</button>
   <button @click="updateins">安装和下载</button>
 </template>
