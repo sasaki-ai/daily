@@ -29,6 +29,9 @@
               <n-button type="primary" block secondary strong @click="loginAdmin">
                 登录
               </n-button>
+              <n-button type="primary" block secondary strong @click="updateApp">
+                跟新
+              </n-button>
               <!-- <h1>跟新内容</h1> -->
             </n-tab-pane>
           </n-tabs>
@@ -50,6 +53,9 @@ import { onUpdaterEvent } from "@tauri-apps/api/updater";
 
 let show = ref(false)
 onMounted(async () => {
+  await updateApp()
+})
+const updateApp = async () => {
   try {
     //检查是否有可用的更新 返回UpdateResult
     const { shouldUpdate, manifest } = await checkUpdate()
@@ -66,15 +72,15 @@ onMounted(async () => {
           // 安装完成后重启
           await relaunch()
         } else if (status == "ERROR") {
-          alert("安装失败:"+error);
+          alert("安装失败:" + error);
         }
       });
       unlisten();
     }
   } catch (error) {
-    alert("更新异常:"+error)
+    alert("更新异常:" + error)
   }
-})
+}
 const message = useMessage()
 let user = ref({
   uname: "",
