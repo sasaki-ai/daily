@@ -29,7 +29,7 @@
               <n-button type="primary" block secondary strong @click="loginAdmin">
                 登录
               </n-button>
-              <!-- <h1>跟新内容</h1> -->
+              <h1>跟新内容</h1>
             </n-tab-pane>
           </n-tabs>
         </n-card>
