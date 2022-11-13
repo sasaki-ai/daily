@@ -52,7 +52,7 @@
     },
     "updater": {
       "active": true,
-      "dialog": true,
+      "dialog": false,
       "endpoints": [
         "https://github.com/1326668766/daily/releases/download/updater/update.json"
       ],
