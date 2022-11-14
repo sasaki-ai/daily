@@ -97,8 +97,6 @@ const myBills = async (page) => {
     uid: uid,
     date: range.value
   }, page);
-  console.log(bills)
-  console.log(range.value)
   data.value = Array.apply(null, bills.data.data.list).map((target, index) => ({
     date: target.date,
     amount: target.amount,

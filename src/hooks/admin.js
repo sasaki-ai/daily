@@ -1,10 +1,10 @@
-import apiA from "./apiA.js";
+import api from "./api.js";
 export function getConfirmBills() {
-    return apiA.get(`/sasa/admin/noBills`)
+    return api.get('admin/noBills')
 }
 export function confirmBills(bids) {
-    return apiA.put(`/sasa/admin/confirm`,bids)
+    return api.put('admin/confirm',bids)
 }
 export function delBills(bids) {
-    return apiA.delete(`/sasa/admin/cancel`,{data: bids})
+    return api.delete('/sasa/admin/cancel',{data: bids})
 }

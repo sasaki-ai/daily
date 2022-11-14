@@ -11,13 +11,6 @@ export default defineConfig({
   // tauri expects a fixed port, fail if that port is not available
   server: {
     port: 1420,
-    proxy: {
-      '/sasa': {
-        target: 'https://www.redmove.top/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/sasa/, '')
-      }
-    },
     strictPort: true,
   },
   // to make use of `TAURI_DEBUG` and other env variables

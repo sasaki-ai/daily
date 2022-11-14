@@ -46,6 +46,7 @@ import { useMessage, useDialog } from 'naive-ui';
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
 import { relaunch } from '@tauri-apps/api/process'
 import { onUpdaterEvent } from "@tauri-apps/api/updater";
+import { fetch,Body } from '@tauri-apps/api/http';
 
 const dialog = useDialog();
 let show = ref(false)
@@ -88,6 +89,11 @@ onMounted(async () => {
 })
 
 const loginUser = async () => {
+  // const logindata = await fetch('http://www.redmove.top/login/user', {
+  //   method: 'POST',
+  //   // 常规的json格式请求体发送
+  //   body: Body.json(user.value)
+  // });
   let logindata = await userLogin(user.value);
   if (logindata.data.status == 200) {
     message.success("登陆成功");
