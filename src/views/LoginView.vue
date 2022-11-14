@@ -1,5 +1,4 @@
 <template>
-  <n-spin :show="show">
     <n-grid cols="12" item-responsive>
       <n-grid-item span="12">
         <n-card class="bgLogin" :bordered="false">
@@ -29,16 +28,11 @@
               <n-button type="primary" block secondary strong @click="loginAdmin">
                 登录
               </n-button>
-              <n-button type="primary" block secondary strong @click="updateApp">
-                跟新
-              </n-button>
-              <!-- <h1>跟新内容</h1> -->
             </n-tab-pane>
           </n-tabs>
         </n-card>
       </n-grid-item>
     </n-grid>
-  </n-spin>
 </template>
 
 <script setup>
@@ -47,40 +41,7 @@ import { onMounted, ref } from "@vue/runtime-core";
 import { invoke } from "@tauri-apps/api/tauri";
 import { adminLogin, userLogin } from '../hooks/login';
 import { useMessage } from 'naive-ui';
-import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
-import { relaunch } from '@tauri-apps/api/process'
-import { onUpdaterEvent } from "@tauri-apps/api/updater";
 
-let show = ref(false)
-onMounted(async () => {
-  await updateApp()
-})
-const updateApp = async () => {
-  try {
-    //检查是否有可用的更新 返回UpdateResult
-    const { shouldUpdate, manifest } = await checkUpdate()
-    alert(shouldUpdate)
-    if (shouldUpdate) {
-      show.value = true
-      // 如果有可用的更新，请安装更新
-      await installUpdate()
-      const unlisten = await onUpdaterEvent(async ({ error, status }) => {
-        if (status == "PENDING") {
-          alert("下载开始")
-        } else if (status == "DONE") {
-          alert("安装完成")
-          // 安装完成后重启
-          await relaunch()
-        } else if (status == "ERROR") {
-          alert("安装失败:" + error);
-        }
-      });
-      unlisten();
-    }
-  } catch (error) {
-    alert("更新异常:" + error)
-  }
-}
 const message = useMessage()
 let user = ref({
   uname: "",

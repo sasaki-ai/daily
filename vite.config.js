@@ -13,7 +13,7 @@ export default defineConfig({
     port: 1420,
     proxy: {
       '/sasa': {
-        target: 'http://localhost:8080/',
+        target: 'https://www.redmove.top/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/sasa/, '')
       }
