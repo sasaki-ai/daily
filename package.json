@@ -1,7 +1,7 @@
 {
   "name": "daily",
   "private": true,
-  "version": "2.1.7",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
