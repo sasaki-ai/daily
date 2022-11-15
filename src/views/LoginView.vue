@@ -136,7 +136,7 @@ const updateApp = async () => {
   try {
     //检查是否有可用的更新 返回UpdateResult
     const { shouldUpdate, manifest } = await checkUpdate();
-    message.info("当前版本:" + manifest.version);
+    message.info("最新版本:" + manifest.version);
     if (shouldUpdate) {
       dialog.warning({
         title: '更新',
@@ -145,8 +145,6 @@ const updateApp = async () => {
         negativeText: '否',
         onPositiveClick: async () => {
           show.value = true;
-          // 如果有可用的更新，请安装更新
-          await installUpdate()
           const unlisten = await onUpdaterEvent(async ({ error, status }) => {
             if (status == "PENDING") {
               message.info("下载开始")
@@ -158,14 +156,16 @@ const updateApp = async () => {
               message.error("安装失败:" + error);
             }
           });
-          unlisten();
+          // 如果有可用的更新，请安装更新
+          await installUpdate()
           show.value = false;
+          unlisten();
         }
       })
 
     }
   } catch (error) {
-    alert("更新异常:" + error)
+    alert("更新异常: 无法连接到外网")
   }
 }
 </script>

@@ -142,7 +142,6 @@ const cusBills = async () => {
 
 const allBills = async () => {
     let bills = await search({}, 1);
-
     data.value = Array.apply(null, bills.data.data.list).map((target, index) => ({
         date: target.date,
         amount: target.amount,

@@ -55,7 +55,7 @@ for (const { name, browser_download_url } of release.assets) {
   } else if (name.endsWith('.AppImage.tar.gz')) {
     updateData.platforms.linux.url = browser_download_url;
     updateData.platforms['linux-x86_64'].url = browser_download_url;
-  } else if (name.endsWith('.AppImage.tae.gz.sig')) {
+  } else if (name.endsWith('.AppImage.tar.gz.sig')) {
     const signature = await getSignature(browser_download_url);
     updateData.platforms.linux.signature = signature;
     updateData.platforms['linux-x86_64'].signature = signature;

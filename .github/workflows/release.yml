@@ -28,7 +28,7 @@ jobs:
           with:
             tag_name: '${{ steps.get_version.outputs.VERSION }}'
             release_name: 'daily ${{ steps.get_version.outputs.VERSION }}'
-            body: 'beta 0.0.2'
+            body: '正式版 1.0.2'
   release:
     needs: create-release
     strategy:
