@@ -86,6 +86,7 @@ let rules = ref({
 
 onMounted(async () => {
   await updateApp()
+  invoke('close_splashscreen')
 })
 
 const loginUser = async () => {

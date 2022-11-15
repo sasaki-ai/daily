@@ -13,11 +13,15 @@
   "tauri": {
     "allowlist": {
       "all": true,
-      "http":{
-        "scope":[
+      "http": {
+        "scope": [
           "http://**",
           "https://**"
         ]
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$RESOURCE/img/*"]
       }
     },
     "bundle": {
@@ -44,7 +48,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": ["./img"],
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -54,27 +58,35 @@
       }
     },
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
       "active": true,
       "dialog": false,
-      "endpoints": ["https://github.com/sasaki-ai/daily/releases/download/updater/update.json"],
+      "endpoints": [
+        "https://github.com/sasaki-ai/daily/releases/download/updater/update.json"
+      ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEMjE1OUI2RUVDRDcwOEIKUldTTGNNM3V0bGtoWGRBL1d2WUZSdWErWkwzRG5KQ3M0U2N4VllXQkErWXpXUFlBQ3ZmMno3Z1AK"
     },
     "windows": [
       {
         "fullscreen": false,
         "height": 400,
-        "maxHeight": 400,
-        "minHeight": 400,
-        "resizable": true,
+        "resizable": false,
         "title": "daily",
         "width": 400,
-        "maxWidth": 400,
-        "minWidth": 400,
         "center": true,
-        "label": "login"
+        "label": "login",
+        "visible": false
+      },
+      {
+        "width": 400,
+        "height": 240,
+        "decorations": false,
+        "transparent": true,
+        "url": "/open",
+        "label": "open",
+        "center": true
       }
     ]
   }
