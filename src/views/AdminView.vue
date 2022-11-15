@@ -134,6 +134,7 @@ onMounted(async () => {
 
 const cusBills = async () => {
     let nobills = await getConfirmBills();
+    console.log(nobills)
     transOptions.value = Array.apply(null, nobills.data.data).map((target, index) => ({
         label: target.uname + " => [金额:" + target.amount + " 类型:" + target.type + " 日期:" + target.date + "]",
         value: target.bid,

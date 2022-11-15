@@ -46,7 +46,7 @@ import { useMessage, useDialog } from 'naive-ui';
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
 import { relaunch } from '@tauri-apps/api/process'
 import { onUpdaterEvent } from "@tauri-apps/api/updater";
-import { fetch,Body } from '@tauri-apps/api/http';
+import { fetch, Body } from '@tauri-apps/api/http';
 
 const dialog = useDialog();
 let show = ref(false)
@@ -89,11 +89,6 @@ onMounted(async () => {
 })
 
 const loginUser = async () => {
-  // const logindata = await fetch('http://www.redmove.top/login/user', {
-  //   method: 'POST',
-  //   // 常规的json格式请求体发送
-  //   body: Body.json(user.value)
-  // });
   let logindata = await userLogin(user.value);
   if (logindata.data.status == 200) {
     message.success("登陆成功");
@@ -120,18 +115,6 @@ const loginAdmin = async () => {
   }
 }
 
-const check = async () => {
-  try {
-    const { shouldUpdate, manifest } = await checkUpdate()
-    if (shouldUpdate) {
-      message.info("可更新,最新版为:" + manifest.version)
-    } else {
-      message.success("当前为最新版本")
-    }
-  } catch (error) {
-    message.error("更新异常:" + error)
-  }
-}
 const updateApp = async () => {
   try {
     //检查是否有可用的更新 返回UpdateResult
@@ -143,6 +126,7 @@ const updateApp = async () => {
         content: '是否更新?',
         positiveText: '是',
         negativeText: '否',
+        maskClosable: false,
         onPositiveClick: async () => {
           show.value = true;
           const unlisten = await onUpdaterEvent(async ({ error, status }) => {
@@ -162,10 +146,18 @@ const updateApp = async () => {
           unlisten();
         }
       })
-
     }
   } catch (error) {
-    alert("更新异常: 无法连接到外网")
+    dialog.error({
+      title: '更新错误',
+      content: "无法连接到外网",
+      positiveText: '关闭程序',
+      maskClosable: false,
+      onPositiveClick: async () => {
+        const win = WebviewWindow.getByLabel("login");
+        win?.close();
+      }
+    })
   }
 }
 </script>

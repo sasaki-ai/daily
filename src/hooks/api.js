@@ -5,10 +5,10 @@ class api {
         this.token = '';
         this.tokenA = '';
         if (localStorage.getItem("tokenA")) {
+            this.tokenA = localStorage.getItem("tokenA");
             this.token = localStorage.getItem("tokenA");
-        }
-        if (localStorage.getItem("token")) {
-            this.tokenA = localStorage.getItem("token");
+        }else if (localStorage.getItem("token")) {
+            this.token = localStorage.getItem("token");
         } 
     }
 
@@ -16,7 +16,7 @@ class api {
         return http.fetch("http://www.redmove.top/" + url, {
             headers: {
                 token: this.token,
-                tokena: this.tokenA
+                tokenA: this.tokenA
             },
             method: 'GET',
             // get请求的参数值必须为字符串
@@ -28,7 +28,7 @@ class api {
         return http.fetch("http://www.redmove.top/" + url, {
             headers: {
                 token: this.token,
-                tokena: this.tokenA
+                tokenA: this.tokenA
             },
             method: 'POST',
             // 常规的json格式请求体发送
@@ -40,7 +40,7 @@ class api {
         return http.fetch("http://www.redmove.top/" + url, {
             headers: {
                 token: this.token,
-                tokena: this.tokenA
+                tokenA: this.tokenA
             },
             method: 'PUT',
             // 常规的json格式请求体发送
@@ -52,7 +52,7 @@ class api {
         return http.fetch("http://www.redmove.top/" + url, {
             headers: {
                 token: this.token,
-                tokena: this.tokenA
+                tokenA: this.tokenA
             },
             method: 'Delete',
             // 常规的json格式请求体发送
