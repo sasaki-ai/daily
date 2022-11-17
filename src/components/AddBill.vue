@@ -12,6 +12,7 @@
                     <n-input v-model:value="value.amount" :style="{ width: '50%' }" placeholder="金额" />
                     <n-select v-model:value="value.type" :options="typeOption" :style="{ width: '50%' }"
                         placeholder="类型" />
+                    <n-date-picker v-model:value="value.date" type="date" placeholder="日期" />
                 </n-input-group>
             </template>
         </n-dynamic-input>
@@ -54,10 +55,12 @@ const onCreate = () => {
     return {
         uid: uid,
         amount: "",
-        type: []
+        type: [],
+        date: null,
     }
 }
 const addBill = () => {
+    console.log(bills.value)
     dialog.warning({
         title: '警告',
         content: '你确定添加账单吗?',

@@ -19,9 +19,8 @@
           "https://**"
         ]
       },
-      "protocol": {
-        "asset": true,
-        "assetScope": ["$RESOURCE/img/*"]
+      "fs": {
+        "scope": ["$RESOURCE/img/*"]
       }
     },
     "bundle": {
@@ -58,7 +57,7 @@
       }
     },
     "security": {
-      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+      "csp": null
     },
     "updater": {
       "active": true,

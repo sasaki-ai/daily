@@ -8,18 +8,21 @@
 </template>
 
 <script setup>
-import { resourceDir, join } from '@tauri-apps/api/path';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { onMounted, ref } from '@vue/runtime-core';
+import { readBinaryFile, BaseDirectory } from '@tauri-apps/api/fs';
 
 let imgSrc = ref();
+let show = ref(false);
 
 onMounted(async () => {
-    const resourceDirPath = await resourceDir();
-    const filePath = await join(resourceDirPath, 'img', "open.jpg");
-    const assetUrl = convertFileSrc(filePath);
-    console.log(assetUrl)
+    const contents = await readBinaryFile('img/open.jpg', { 
+        dir: BaseDirectory.Resource 
+    });
+    let binary_data_arr = new Uint8Array(contents);
+    let p1 = new Blob([binary_data_arr], {type: 'image/jpg'});
+    let assetUrl = URL.createObjectURL(p1)
     imgSrc.value = assetUrl;
+    show.value = true;
 })
 </script>
 

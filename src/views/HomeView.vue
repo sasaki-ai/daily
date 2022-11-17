@@ -83,7 +83,6 @@ const menuOptions = ref([
   {
     label: "用户名",
     key: "hear-the-wind-sing",
-    href: "https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F/3199"
   }
 ]);
 
@@ -92,6 +91,7 @@ onMounted(async () => {
   win?.close();
   await myBills(1);
 })
+
 const myBills = async (page) => {
   let bills = await search({
     uid: uid,

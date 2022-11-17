@@ -7,7 +7,9 @@ class api {
         if (localStorage.getItem("tokenA")) {
             this.tokenA = localStorage.getItem("tokenA");
             this.token = localStorage.getItem("tokenA");
-        }else if (localStorage.getItem("token")) {
+        }
+        
+        if (localStorage.getItem("token")) {
             this.token = localStorage.getItem("token");
         } 
     }
