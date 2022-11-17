@@ -8,3 +8,6 @@ export function confirmBills(bids) {
 export function delBills(bids) {
     return api.delete('admin/cancel',{data: bids})
 }
+export function createUser(user) {
+    return api.post('admin/create/user',user)
+}

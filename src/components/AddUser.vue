@@ -22,6 +22,7 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 import { useMessage, useDialog } from 'naive-ui';
+import { createUser } from "../hooks/admin";
 
 const dialog = useDialog()
 const message = useMessage()
@@ -33,11 +34,16 @@ let user = ref({
 const addUser = () => {
     dialog.warning({
         title: '警告',
-        content: '你确定天机此用户吗?',
+        content: '你确定添加此用户吗?',
         positiveText: '确定',
         negativeText: '不确定',
-        onPositiveClick: () => {
-            message.success('确定')
+        onPositiveClick: async () => {
+            let userStatus = await createUser(user.value);
+            if (userStatus.data.status == 200) {
+                message.success("添加成功");
+            } else {
+                message.error("添加失败");
+            }
         },
         onNegativeClick: () => {
         }

@@ -60,7 +60,6 @@ const onCreate = () => {
     }
 }
 const addBill = () => {
-    console.log(bills.value)
     dialog.warning({
         title: '警告',
         content: '你确定添加账单吗?',
