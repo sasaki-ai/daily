@@ -85,7 +85,7 @@ let rules = ref({
 })
 
 onMounted(async () => {
-  await updateApp()
+  await updateApp();
   invoke('close_splashscreen')
 })
 
@@ -151,7 +151,7 @@ const updateApp = async () => {
   } catch (error) {
     dialog.error({
       title: '更新错误',
-      content: "无法连接到外网",
+      content: "无法连接到外网 -->"+error,
       positiveText: '关闭程序',
       maskClosable: false,
       onPositiveClick: async () => {

@@ -20,7 +20,10 @@
         ]
       },
       "fs": {
-        "scope": ["$RESOURCE/img/*"]
+        "scope": [
+          "$RESOURCE/img/*",
+          "https://**"
+        ]
       }
     },
     "bundle": {
