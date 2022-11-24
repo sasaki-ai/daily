@@ -7,9 +7,23 @@
 </template>
 
 <script setup>
-//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
+
 </script>
 
 <style>
+.titlebar {
+  background: #329ea3;
+}
 
+.titlebar-button {
+  padding-right: 5px;
+}
+
+.titlebar-button:hover {
+  background: #5bbec3;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
 </style>

@@ -51,12 +51,15 @@
         "signingIdentity": null
       },
       "resources": ["./img"],
-      "shortDescription": "",
+      "shortDescription": "记账系统",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
-        "timestampUrl": ""
+        "timestampUrl": "",
+        "wix": {
+          "language": "zh-CN"
+        }
       }
     },
     "security": {
@@ -79,7 +82,8 @@
         "width": 400,
         "center": true,
         "label": "login",
-        "visible": false
+        "visible": false,
+        "decorations": false
       },
       {
         "width": 400,

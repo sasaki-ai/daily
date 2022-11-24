@@ -1,5 +1,5 @@
 <template>
-    <n-modal preset="dialog" title="Dialog">
+    <n-modal preset="dialog" title="Dialog" :on-after-leave="clear">
         <template #header>
             <div>支出报告</div>
         </template>
@@ -38,6 +38,11 @@ const createWord = async () => {
         amount: target.amount,
         type: target.type
     }));
+}
+
+const clear = () => {
+    wordShow.value = false;
+    data.value = [];
 }
 </script>
 

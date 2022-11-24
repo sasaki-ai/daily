@@ -4,14 +4,14 @@ class api {
     constructor() {
         this.token = '';
         this.tokenA = '';
-        if (localStorage.getItem("tokenA")) {
+        if (localStorage.getItem("token") != null) {
+            this.token = localStorage.getItem("token");
+        } 
+        
+        if (localStorage.getItem("tokenA") != null) {
             this.tokenA = localStorage.getItem("tokenA");
             this.token = localStorage.getItem("tokenA");
         }
-        
-        if (localStorage.getItem("token")) {
-            this.token = localStorage.getItem("token");
-        } 
     }
 
     get = (url, data) => {

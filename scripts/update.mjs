@@ -16,6 +16,7 @@ const getSignature = async (url) => {
 // 需要生成的静态 json 文件数据，根据自己的需要进行调整
 const updateData = {
   version: '',
+  notes: "stable",
   pub_date: new Date().toISOString(),
   platforms: {
     win64: { signature: '', url: '' },

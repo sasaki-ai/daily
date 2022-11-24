@@ -2,6 +2,14 @@
   <n-spin :show="show">
     <n-grid cols="12" item-responsive>
       <n-grid-item span="12">
+        <n-space justify="end" class="titlebar">
+          <div class="titlebar-button" id="titlebar-minimize" @click="minimize">
+            <img src="https://api.iconify.design/mdi:window-minimize.svg" alt="minimize" />
+          </div>
+          <div class="titlebar-button" id="titlebar-close" @click="close">
+            <img src="https://api.iconify.design/mdi:close.svg" alt="close" />
+          </div>
+        </n-space>
         <n-card class="bgLogin" :bordered="false">
           <n-tabs type="line" size="large">
             <n-tab-pane name="用户">
@@ -46,7 +54,14 @@ import { useMessage, useDialog } from 'naive-ui';
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater'
 import { relaunch } from '@tauri-apps/api/process'
 import { onUpdaterEvent } from "@tauri-apps/api/updater";
-import { fetch, Body } from '@tauri-apps/api/http';
+import { appWindow } from '@tauri-apps/api/window'
+
+const minimize = () => {
+  appWindow.minimize();
+}
+const close = () => {
+  appWindow.hide();
+}
 
 const dialog = useDialog();
 let show = ref(false)
@@ -129,11 +144,12 @@ const updateApp = async () => {
         negativeText: '否',
         maskClosable: false,
         onPositiveClick: async () => {
-          show.value = true;
           const unlisten = await onUpdaterEvent(async ({ error, status }) => {
             if (status == "PENDING") {
+              show.value = true;
               message.info("下载开始")
             } else if (status == "DONE") {
+              show.value = false;
               message.success("安装完成")
               // 安装完成后重启
               await relaunch()
@@ -143,22 +159,21 @@ const updateApp = async () => {
           });
           // 如果有可用的更新，请安装更新
           await installUpdate()
-          show.value = false;
           unlisten();
         }
       })
     }
   } catch (error) {
-    dialog.error({
-      title: '更新错误',
-      content: "无法连接到外网 -->"+error,
-      positiveText: '关闭程序',
-      maskClosable: false,
-      onPositiveClick: async () => {
-        const win = WebviewWindow.getByLabel("login");
-        win?.close();
-      }
-    })
+    // dialog.error({
+    //   title: '更新错误',
+    //   content: "无法连接到外网 -->"+error,
+    //   positiveText: '关闭程序',
+    //   maskClosable: false,
+    //   onPositiveClick: async () => {
+    //     const win = WebviewWindow.getByLabel("login");
+    //     win?.close();
+    //   }
+    // })
   }
 }
 </script>
