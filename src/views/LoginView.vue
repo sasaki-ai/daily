@@ -2,7 +2,7 @@
   <n-spin :show="show">
     <n-grid cols="12" item-responsive>
       <n-grid-item span="12">
-        <n-space justify="end" class="titlebar">
+        <n-space justify="end" class="titlebar" data-tauri-drag-region>
           <div class="titlebar-button" id="titlebar-minimize" @click="minimize">
             <img src="https://api.iconify.design/mdi:window-minimize.svg" alt="minimize" />
           </div>
@@ -108,6 +108,7 @@ const loginUser = async () => {
   let logindata = await userLogin(user.value);
   if (logindata.data.status == 200) {
     message.success("登陆成功");
+    localStorage.removeItem("tokenA");
     localStorage.setItem("token", logindata.data.data.token);
     localStorage.setItem("uid", logindata.data.data.uid);
     const win = WebviewWindow.getByLabel("login");
@@ -122,6 +123,7 @@ const loginAdmin = async () => {
   let logindata = await adminLogin(admin.value);
   if (logindata.data.status == 200) {
     message.success("登陆成功");
+    localStorage.removeItem("token");
     localStorage.setItem("tokenA", logindata.data.data.tokenA)
     const win = WebviewWindow.getByLabel("login");
     win?.hide();

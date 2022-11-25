@@ -4,13 +4,15 @@ class api {
     constructor() {
         this.token = '';
         this.tokenA = '';
-        if (localStorage.getItem("token") != null) {
+        if (localStorage.getItem("token")) {
+            console.log("token:"+localStorage.getItem("token"))
             this.token = localStorage.getItem("token");
         } 
         
-        if (localStorage.getItem("tokenA") != null) {
+        if (localStorage.getItem("tokenA")) {
             this.tokenA = localStorage.getItem("tokenA");
             this.token = localStorage.getItem("tokenA");
+            console.log("tokenA:"+localStorage.getItem("tokenA"))
         }
     }
 

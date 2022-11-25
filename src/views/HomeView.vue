@@ -1,7 +1,7 @@
 <template>
   <n-grid cols="12" item-responsive>
     <n-grid-item span="12">
-      <n-space justify="end" class="titlebar">
+      <n-space justify="end" class="titlebar" data-tauri-drag-region>
         <div class="titlebar-button" id="titlebar-minimize" @click="minimize">
           <img src="https://api.iconify.design/mdi:window-minimize.svg" alt="minimize" />
         </div>
