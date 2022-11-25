@@ -55,7 +55,8 @@ import AddBill from "../components/AddBill.vue";
 import { onMounted, ref, h } from "@vue/runtime-core";
 import { WebviewWindow } from '@tauri-apps/api/window';
 import { search } from "../hooks/user";
-import { appWindow } from '@tauri-apps/api/window'
+import { appWindow } from '@tauri-apps/api/window';
+import { useDialog } from 'naive-ui';
 
 const minimize = () => {
   appWindow.minimize();
@@ -64,18 +65,29 @@ const maximize = () => {
   appWindow.toggleMaximize();
 }
 const close = () => {
-  appWindow.hide();
+  dialog.warning({
+        title: '警告',
+        content: '你确定关闭此程序吗?',
+        positiveText: '确定',
+        negativeText: '后台运行',
+        onPositiveClick: async () => {
+            appWindow.close();
+        },
+        onNegativeClick: () => {
+            appWindow.hide();
+        }
+    })
 }
 
-let scro = ref()
+const dialog = useDialog();
+let scro = ref();
 const uid = localStorage.getItem("uid");
 let searchShow = ref(false);
 let summerShow = ref(false);
 let addShow = ref(false);
 let collapsed = ref(true);
-let range = ref([118313526e4, Date.now()]);
+let range = ref([Date.now(), Date.now()]);
 let loading = ref(false);
-let pageHelper = ref(1);
 let pagination = ref({
   page: 1,
   pageSize: 4,
@@ -87,7 +99,7 @@ let pagination = ref({
     }
 
     pagination.value.page = page;
-    await myBills(page);
+    await myBills(page,null);
     loading.value = false;
   }
 })
@@ -116,14 +128,14 @@ const menuOptions = ref([
 onMounted(async () => {
   const win = WebviewWindow.getByLabel("login");
   win?.close();
-  await myBills(1);
-  scro.value = window.innerHeight;
+  await myBills(1,null);
+  scro.value = window.innerHeight - 30;
 })
 
-const myBills = async (page) => {
+const myBills = async (page,date) => {
   let bills = await search({
     uid: uid,
-    date: range.value
+    date: date
   }, page);
   data.value = Array.apply(null, bills.data.data.list).map((target, index) => ({
     date: target.date,
@@ -151,10 +163,10 @@ const summerShowBtn = () => {
   summerShow.value = true;
 }
 const searchShowBtn = async () => {
-  await myBills(1);
+  await myBills(1,range.value);
 }
 const refreshBtn = async () => {
-  await myBills(1);
+  await myBills(1,null);
 }
 </script>
 

@@ -68,8 +68,8 @@ const addBill = () => {
         onPositiveClick: async () => {
             let billState = await create(bills.value);
             if (billState.data.status == 200) {
-                message.success("添加成功");
                 bills.value = [];
+                message.success("添加成功");
             } else {
                 message.error("添加失败");
             }

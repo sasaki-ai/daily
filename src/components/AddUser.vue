@@ -38,6 +38,7 @@ const addUser = () => {
         positiveText: '确定',
         negativeText: '不确定',
         onPositiveClick: async () => {
+            console.log(user.value);
             let userStatus = await createUser(user.value);
             if (userStatus.data.status == 200) {
                 message.success("添加成功");

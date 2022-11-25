@@ -60,7 +60,7 @@ const minimize = () => {
   appWindow.minimize();
 }
 const close = () => {
-  appWindow.hide();
+  appWindow.close();
 }
 
 const dialog = useDialog();
@@ -104,6 +104,7 @@ onMounted(async () => {
   invoke('close_splashscreen')
 })
 
+//用户登录
 const loginUser = async () => {
   let logindata = await userLogin(user.value);
   if (logindata.data.status == 200) {
@@ -119,11 +120,13 @@ const loginUser = async () => {
   }
 }
 
+//管理员登录
 const loginAdmin = async () => {
   let logindata = await adminLogin(admin.value);
   if (logindata.data.status == 200) {
     message.success("登陆成功");
     localStorage.removeItem("token");
+    localStorage.removeItem("uid");
     localStorage.setItem("tokenA", logindata.data.data.tokenA)
     const win = WebviewWindow.getByLabel("login");
     win?.hide();
@@ -133,6 +136,7 @@ const loginAdmin = async () => {
   }
 }
 
+//检测更新
 const updateApp = async () => {
   try {
     //检查是否有可用的更新 返回UpdateResult

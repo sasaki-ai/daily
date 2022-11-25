@@ -69,6 +69,7 @@
                                     </template>
                                     <template #header-extra>
                                         <n-space justify="end">
+                                            <n-date-picker v-model:value="range" type="daterange" clearable />
                                             <n-button type="info" @click="searchShowBtn">
                                                 搜索
                                             </n-button>
@@ -78,7 +79,7 @@
                                         </n-space>
                                     </template>
                                     <template #default>
-                                        <n-data-table :columns="columns" :data="data" :pagination="pagination" />
+                                        <n-data-table remote :columns="columns" :data="data" :pagination="pagination" :loading="loading"/>
                                     </template>
                                 </n-card>
                             </n-layout>
@@ -89,22 +90,20 @@
         </n-grid-item>
     </n-grid>
     <add-user v-model:show="addShow" />
-    <search-bill v-model:show="searchShow" />
     <summer-log v-model:show="summerShow" />
     <add-bill v-model:show="confirmShow" />
 </template>
   
 <script setup>
-import SearchBill from "../components/SearchBill.vue";
 import SummerLog from "../components/SummerLog.vue";
 import AddBill from "../components/AddBill.vue";
 import AddUser from "../components/AddUser.vue";
-import { useMessage } from 'naive-ui';
+import { useMessage,useDialog } from 'naive-ui';
 import { onMounted, ref, h } from "@vue/runtime-core";
 import { WebviewWindow } from '@tauri-apps/api/window';
 import { confirmBills, delBills, getConfirmBills } from "../hooks/admin";
 import { search } from "../hooks/user";
-import { appWindow } from '@tauri-apps/api/window'
+import { appWindow } from '@tauri-apps/api/window';
 
 const minimize = () => {
     appWindow.minimize();
@@ -113,9 +112,21 @@ const maximize = () => {
     appWindow.toggleMaximize();
 }
 const close = () => {
-    appWindow.hide();
+    dialog.warning({
+        title: '警告',
+        content: '你确定关闭此程序吗?',
+        positiveText: '确定',
+        negativeText: '后台运行',
+        onPositiveClick: async () => {
+            appWindow.close();
+        },
+        onNegativeClick: () => {
+            appWindow.hide();
+        }
+    })
 }
 
+const dialog = useDialog();
 let scro = ref()
 let offset = ref(null)
 const uid = localStorage.getItem("uid");
@@ -126,8 +137,22 @@ let summerShow = ref(false);
 let addShow = ref(false);
 let confirmShow = ref(false);
 let collapsed = ref(true);
-const pagination = ref({
-    pageSize: 5
+let range = ref([Date.now(), Date.now()]);
+let loading = ref(false);
+let pagination = ref({
+  page: 1,
+  pageSize: 4,
+  pageCount: 2,
+  showQuickJumper: true,
+  onChange: async (page) => {
+    if (!loading.value) {
+      loading.value = true;
+    }
+
+    pagination.value.page = page;
+    await allBills(page,null);
+    loading.value = false;
+  }
 })
 const columns = ref([
     {
@@ -161,29 +186,26 @@ onMounted(async () => {
     const win = WebviewWindow.getByLabel("login");
     win?.close();
     await cusBills();
-    await allBills();
-    console.log('offsetTop', offset.value.offsetHeight);
-    console.log(window.innerHeight);
-    scro.value = window.innerHeight;
+    await allBills(1,null);
+    scro.value = window.innerHeight - 30;
 })
 
 const cusBills = async () => {
     let nobills = await getConfirmBills();
-    console.log(nobills)
     transOptions.value = Array.apply(null, nobills.data.data).map((target, index) => ({
         label: target.uname + " => [金额:" + target.amount + " 类型:" + target.type + " 日期:" + target.date + "]",
         value: target.bid,
     }));
 }
 
-const allBills = async () => {
-    let bills = await search({}, 1);
-    console.log(bills);
+const allBills = async (page,date) => {
+    let bills = await search({date: date}, page);
     data.value = Array.apply(null, bills.data.data.list).map((target, index) => ({
         date: target.date,
         amount: target.amount,
         type: target.type
     }));
+    pagination.value.pageCount = Math.ceil(bills.data.data.total / bills.data.data.pageSize);
 }
 
 const renderMenuLabel = (option) => {
@@ -204,6 +226,7 @@ const confirmBtn = async () => {
     let bill = await confirmBills(transBills.value);
     if (bill.data.status == 200) {
         await cusBills();
+        transBills.value = [];
         message.success('提交成功');
     } else {
         message.success('提交失败');
@@ -213,6 +236,7 @@ const cancelBtn = async () => {
     let bill = await delBills(transBills.value);
     if (bill.data.status == 200) {
         await cusBills();
+        transBills.value = [];
         message.success('提交成功');
     } else {
         message.success('提交失败');
@@ -221,12 +245,12 @@ const cancelBtn = async () => {
 const summerShowBtn = () => {
     summerShow.value = true;
 }
-const searchShowBtn = () => {
-    searchShow.value = true;
+const searchShowBtn = async () => {
+    await allBills(1,range.value);
 }
 const refreshBtn = async () => {
     await cusBills();
-    await allBills();
+    await allBills(1,null);
     transBills.value = [];
 }
 </script>
