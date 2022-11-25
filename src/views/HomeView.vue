@@ -132,6 +132,7 @@ onMounted(async () => {
   scro.value = window.innerHeight - 30;
 })
 
+//获取个人账单
 const myBills = async (page,date) => {
   let bills = await search({
     uid: uid,
