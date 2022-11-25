@@ -69,6 +69,7 @@ const addBill = () => {
             let billState = await create(bills.value);
             if (billState.data.status == 200) {
                 message.success("添加成功");
+                bills.value = [];
             } else {
                 message.error("添加失败");
             }

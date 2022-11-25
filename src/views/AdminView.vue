@@ -227,6 +227,7 @@ const searchShowBtn = () => {
 const refreshBtn = async () => {
     await cusBills();
     await allBills();
+    transBills.value = [];
 }
 </script>
   
